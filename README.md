@@ -9,4 +9,6 @@ The user can input 13 predictor values and click the analyse button for getting 
 The user get a response message saying if he has heart disease or not
 ![image](https://user-images.githubusercontent.com/52347258/115506692-c8a64280-a298-11eb-83f2-bc7964ce986f.png)
 
+
+# Contribution
 Read our contributing guide to learn about our development process, how to propose bugfixes and improvements.
