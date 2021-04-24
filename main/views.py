@@ -5,7 +5,7 @@ from django.shortcuts import render
 # Create your views here.
 from main.classifiers import *
 from main.forms import DatasetForm
-from main.models import Train
+from main.models import Train, Dataset
 from main.train import train_main
 
 
@@ -110,7 +110,17 @@ def train(request):
             else:
                 object.training = True
                 object.save()
-                train_main()
+                try:
+                    train_main()
+                except:
+                    object.training = False
+                    object.save()
+                    data = Dataset.objects.last()
+                    data.file.delete()
+                    data.delete()
+                    response = JsonResponse({"error": "there was an error"})
+                    response.status_code = 403  # To announce that the user isn't allowed to publish
+                    return response
                 object.training = False
                 object.save()
                 return JsonResponse('trained', safe=False)

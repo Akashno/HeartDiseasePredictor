@@ -59,7 +59,7 @@ $('input[type="file"]').change(function() {
       val = $("#id_file").val()
       parts = val.split("\\")
       console.log(parts)
-
+      $('#loading').text('');
       $('.train').val('Train using '+parts[parts.length-1])
 });
 $('input#id_name').addClass("form-control")
@@ -83,15 +83,22 @@ $.ajax({
     contentType: false,
 
     success: function(data) {
-        console.log(data),
-        $('.loading').hide(),
-        $('#loading').text('model successfully trained'),
-        $('#loading').addClass('badge-secondary'),
-        $('#loading').addClass('badge-success'),
-        $('.predict').show(),
-        $('.file_path').hide()
-
-    }
+        console.log(data)
+        if(data=='training')
+             $('.loading').hide(),
+             $('#loading').text('Model is already training');
+        else if(data == 'trained')
+            $('.loading').hide(),
+            $('#loading').text('model successfully trained'),
+            $('#loading').addClass('badge-secondary'),
+            $('#loading').addClass('badge-success'),
+            $('.predict').show(),
+            $('.file_path').hide();
+    },
+    error: function(data) {
+        $('.loading').hide();
+        $('#loading').text('Please select a valid file');
+    },
 });
 return false;
 }
