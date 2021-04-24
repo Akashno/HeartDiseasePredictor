@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %} index {% endblock title %}
+{% block style %}
+<style>
+  #id_file {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+  .file_label  {
+  position: relative;
+  width: 150px;
+  height: 36px;
+  border-radius: 0px 25px 25px 0px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  cursor: pointer;
+  transition: transform .2s ease-out;
+}
+button{
+    width:150px !important;
+}
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="container p-5 border border-secondary mt-5 rounded bg-light" style="display:grid; place-items:center;">
+    <h2 class="h3 ">Choose a training csv dataset </h2>
+    <h2 class="h5 mb-4 ">to train the model </h2>
+    <form action="" id="myform" enctype="multipart/form-data" method="POST" class="d-flex ">
+        {% csrf_token %}
+
+        {{form.name}}{{form.file}}
+        <label for="id_file" class="file_label ">Select file</label>
+
+    </form>
+        <input form="myform" type="submit" style="display:none;  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);" value="train" class="train mt-2 w-25 btn-success       mb-3">
+
+    <h4 id="loading" class="badge badge-secondary"></h4>
+     <i class="loading fa-5x fa fa-cog fa-spin"></i>
+    <a href="{% url 'index' %}" style="display:none;"  class="predict  btn btn-info "> Predict </a>
+    {% for message in messages %}
+    <div class="alert alert-secondary">{{message}}</div>
+    {% endfor %}
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script type="text/javascript">
+
+$('input[type="file"]').change(function() {
+      $('.train').show()
+      val = $("#id_file").val()
+      parts = val.split("\\")
+      console.log(parts)
+      $('#loading').text('');
+      $('.train').val('Train using '+parts[parts.length-1])
+});
+$('input#id_name').addClass("form-control")
+$('input#id_name').attr('placeholder','Enter a name for the file')
+$('.loading').hide()
+
+function upload(event) {
+$('#loading').text('Training started...'),
+$('.loading').show(),
+
+event.preventDefault();
+var data = new FormData($('form').get(0));
+console.log(data);
+
+$.ajax({
+    url: $(this).attr('action'),
+    type: $(this).attr('method'),
+    data: data,
+    cache: false,
+    processData: false,
+    contentType: false,
+
+    success: function(data) {
+        console.log(data)
+        if(data=='training')
+             $('.loading').hide(),
+             $('#loading').text('Model is already training');
+        else if(data == 'trained')
+            $('.loading').hide(),
+            $('#loading').text('model successfully trained'),
+            $('#loading').addClass('badge-secondary'),
+            $('#loading').addClass('badge-success'),
+            $('.predict').show(),
+            $('.file_path').hide();
+    },
+    error: function(data) {
+        $('.loading').hide();
+        $('#loading').text('Please select a valid file');
+    },
+});
+return false;
+}
+
+$(function() {
+    $('form').submit(upload);
+});
+
+</script>
+{% endblock script %}
