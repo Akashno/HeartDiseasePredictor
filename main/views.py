@@ -1,8 +1,12 @@
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
 from main.classifiers import *
+from main.forms import DatasetForm
+from main.models import Train
+from main.train import train_main
 
 
 def index(request):
@@ -90,3 +94,27 @@ def analyse(request, pk):
 
     context = {'model': model}
     return render(request, 'main/analyse.html', context)
+
+
+
+
+def train(request):
+    form = DatasetForm()
+    if request.POST:
+        form = DatasetForm(request.POST , request.FILES)
+        if form.is_valid():
+            form.save()
+            object = Train.objects.last()
+            if object.training:
+                return JsonResponse('training', safe=False)
+            else:
+                object.training = True
+                object.save()
+                train_main()
+                object.training = False
+                object.save()
+                return JsonResponse('trained', safe=False)
+        else:
+            return JsonResponse('invalid file', safe=False)
+    context = {'form':form}
+    return render(request, 'main/train.html', context)
