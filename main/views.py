@@ -13,10 +13,21 @@ def index(request):
     context = {}
     return render(request, 'main/index.html', context)
 
+def home(request):
+    context = {}
+    return render(request, 'main/home.html', context)
 
 def analyse(request, pk):
+    data = {
+    'lr':'Logistic Regression','nb':'Naive Bayers','sv':'Support Vector Machine ',
+    'knn':'K near neighbor' ,'dt':'Decision tree','rf':'Random Forest'
+    }
     model = ""
-    if   pk == 1:
+    if pk == 0:
+        f = open("main/ML_models/accurate.txt", "r")
+        accurate = f.read()
+        model = data[accurate]
+    elif pk == 1:
         model = 'Logistic Regression'
     elif pk == 2:
         model = 'Naive Bayers'
@@ -26,7 +37,7 @@ def analyse(request, pk):
         model = 'K near neighbor'
     elif pk == 5:
         model = 'Decision tree'
-    elif pk == 6 or pk == 0:
+    elif pk == 6 :
         model = 'Random Forest'
     global prediction
     if request.POST:
@@ -43,55 +54,31 @@ def analyse(request, pk):
         slope = request.POST.get('slope')
         ca = request.POST.get('ca')
         thal = request.POST.get('thal')
-        if pk == 0 or pk == 1:
 
-
+        if model == 'Logistic Regression':
             prediction = LR_predict(
                 [[age, sex, cp, restbp, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]])
-
-
-
-
-        elif pk == 2:
-
+        elif model == 'Naive Bayers':
             prediction = NB_predict(
                 [[age, sex, cp, restbp, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]])
-
-
-        elif pk == 3:
-
-
+        elif model  == 'Support Vector Machine ':
             prediction = SV_predict(
                 [[age, sex, cp, restbp, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]])
-
-
-        elif pk == 4:
-
-
-
+        elif model  == 'K near neighbor':
             prediction = KNN_predict(
                 [[age, sex, cp, restbp, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]])
-
-
-
-        elif pk == 5:
-
+        elif model == 'Decision tree':
             prediction = DT_predict(
                 [[age, sex, cp, restbp, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal]])
-
-
-        elif pk == 6:
-
+        elif model == 'Random Forest':
             prediction = RF_predict(
                 [[age, sex, cp, restbp,chol, fbs, restecg,thalach, exang, oldpeak,slope, ca, thal]])
-
         output = ""
         if prediction == 0:
             output = 'You have least possibility to have a heart disease'
         elif prediction == 1:
             output = 'Sorry to say that you have a heart disease , we recommend you to consult a doctor'
         messages.success(request, output)
-
     context = {'model': model}
     return render(request, 'main/analyse.html', context)
 
@@ -111,20 +98,20 @@ def train(request):
                 object.training = True
                 object.save()
                 try:
-                    train_main()
+                   train_main()
                 except:
                     object.training = False
                     object.save()
                     data = Dataset.objects.last()
                     data.file.delete()
                     data.delete()
-                    response = JsonResponse({"error": "there was an error"})
+                    response = JsonResponse("error")
                     response.status_code = 403  # To announce that the user isn't allowed to publish
                     return response
                 object.training = False
                 object.save()
                 return JsonResponse('trained', safe=False)
         else:
-            return JsonResponse('invalid file', safe=False)
+            return JsonResponse('invalidFile', safe=False)
     context = {'form':form}
     return render(request, 'main/train.html', context)

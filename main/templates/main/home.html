@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} index {% endblock title %}
+{% block style %}
+<style>
+.centered {
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+}
+
+.header {
+  position: absolute;
+  top: 45%;
+  left: 27.6%;
+  transform: translate(-50%, -50%);
+}
+
+.test-button {
+  position: absolute;
+  top: 55%;
+  left: 13.6%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+}
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class=" text-white container-fluid px-0" style="height: 100vh;">
+<img class="" height="95%" width="100%" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070" alt="">
+    <h5 class=" centered ">Caring For Better Life</h5>
+    <h3 class="header mt-10 font-weight-bold">Efficient Heart Disease prediction system</h3>
+     <a  class="btn btn-info  btn-block  test-button" href="{% url 'index' %}">Test your heart</a>
+</div>
+{% endblock content %}
+
+
+{% block script %}{% endblock script %}

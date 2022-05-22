@@ -25,22 +25,36 @@ def train_main():
     predictors = dataset.drop("target", axis=1)
     target = dataset["target"]
     X_train, X_test, Y_train, Y_test = train_test_split(predictors, target, test_size=0.20, random_state=0)
+   
+    lr_model_score = train_lr_model(X_train, Y_train, X_test, Y_test)
+    nb_model_score = train_nb_model(X_train, Y_train, X_test, Y_test)
+    sv_model_score = train_sv_model(X_train, Y_train, X_test, Y_test)
+    knn_model_score = train_knn_model(X_train, Y_train, X_test, Y_test)
+    dt_model_score =  train_dt_model(X_train, Y_train, X_test, Y_test)
+    rf_model_score =train_rf_model(X_train, Y_train, X_test, Y_test)
 
-    train_lr_model(X_train, Y_train, X_test, Y_test)
-    # train_nb_model(X_train, Y_train, X_test, Y_test)
-    # train_sv_model(X_train, Y_train, X_test, Y_test)
-    # train_knn_model(X_train, Y_train, X_test, Y_test)
-    # train_dt_model(X_train, Y_train, X_test, Y_test)
-    # train_rf_model(X_train, Y_train, X_test, Y_test)
+    scoreData = {
+        'lr': lr_model_score,
+        'nb': nb_model_score,
+        'sv': sv_model_score,
+        'knn': knn_model_score,
+        'dt':dt_model_score,
+        'rf':rf_model_score
+    }    
+    maxScore = max(scoreData, key=scoreData.get)
+    print(maxScore)
+    file = open('main/ML_models/accurate.txt', 'w')
+    file.write(maxScore)
+    file.close()
 
 def train_lr_model(X_train, Y_train, X_test, Y_test):
-    time.sleep(5)
     LR_model = LogisticRegression()
-    LR_model.fit(X_train, Y_train)
-    joblib.dump(LR_model, 'main/ML_models/LR_model.joblib')
+    LR_model.fit(X_train, Y_train)   #training
+    joblib.dump(LR_model, 'main/ML_models/LR_model.joblib') #saving the model after training
+    prediction = LR_model.predict(X_test) #testing
+    score = accuracy_score(prediction, Y_test)
+    return score
 
-    # prediction = LR_model.predict(X_test)
-    # score = accuracy_score(prediction, Y_test)
     # print("logistic :", score)
 
 def train_nb_model(X_train, Y_train, X_test, Y_test):
@@ -48,9 +62,9 @@ def train_nb_model(X_train, Y_train, X_test, Y_test):
     NB_model.fit(X_train, Y_train)
     joblib.dump(NB_model, 'main/ML_models/NB_model.joblib')
 
-    # prediction = NB_model.predict(X_test)
-    # score = accuracy_score(prediction, Y_test)
-    # print("nav bayers :", score)
+    prediction = NB_model.predict(X_test)
+    score = accuracy_score(prediction, Y_test)
+    return score
 
 
 def train_sv_model(X_train, Y_train, X_test, Y_test):
@@ -58,19 +72,19 @@ def train_sv_model(X_train, Y_train, X_test, Y_test):
     SV_model.fit(X_train, Y_train)
     joblib.dump(SV_model, 'main/ML_models/SV_model.joblib')
 
-    # prediction = SV_model.predict(X_test)
-    # score = accuracy_score(prediction, Y_test)
-    # print("sv :", score)
-
+    prediction = SV_model.predict(X_test)
+    score = accuracy_score(prediction, Y_test)
+    return score
+ #
 
 def train_knn_model(X_train, Y_train, X_test, Y_test):
     KNN_model = KNeighborsClassifier(n_neighbors=7)
     KNN_model.fit(X_train, Y_train)
     joblib.dump(KNN_model, 'main/ML_models/KNN_model.joblib')
 
-    # prediction = KNN_model.predict(X_test)
-    # score = accuracy_score(prediction, Y_test)
-    # print("knn :", score)
+    prediction = KNN_model.predict(X_test)
+    score = accuracy_score(prediction, Y_test)
+    return score
 
 
 def train_dt_model(X_train, Y_train, X_test, Y_test):
@@ -89,9 +103,9 @@ def train_dt_model(X_train, Y_train, X_test, Y_test):
     DT_model.fit(X_train, Y_train)
     joblib.dump(DT_model, 'main/ML_models/DT_model.joblib')
 
-    # prediction = DT_model.predict(X_test)
-    # score = accuracy_score(prediction, Y_test)
-    # print("dt :", score)
+    prediction = DT_model.predict(X_test)
+    score = accuracy_score(prediction, Y_test)
+    return score
 
 
 def train_rf_model(X_train, Y_train, X_test, Y_test):
@@ -110,8 +124,8 @@ def train_rf_model(X_train, Y_train, X_test, Y_test):
     RF_model.fit(X_train, Y_train)
     joblib.dump(RF_model, 'main/ML_models/RF_model.joblib')
 
-    # prediction = RF_model.predict(X_test)
-    # score = accuracy_score(prediction, Y_test)
-    # print("rf :", score)
+    prediction = RF_model.predict(X_test)
+    score = accuracy_score(prediction, Y_test)
+    return score
 
 

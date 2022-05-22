@@ -34,7 +34,6 @@ button{
     <h2 class="h5 mb-4 ">to train the model </h2>
     <form action="" id="myform" enctype="multipart/form-data" method="POST" class="d-flex ">
         {% csrf_token %}
-
         {{form.name}}{{form.file}}
         <label for="id_file" class="file_label ">Select file</label>
 
@@ -87,6 +86,12 @@ $.ajax({
         if(data=='training')
              $('.loading').hide(),
              $('#loading').text('Model is already training');
+        else if(data == 'invalidFile')
+            $('#loading').text('Invalid file'),
+            $('.loading').hide()
+        else if(data == 'error')
+            $('#loading').text('Something Gone wrong'),
+            $('.loading').hide()
         else if(data == 'trained')
             $('.loading').hide(),
             $('#loading').text('model successfully trained'),
