@@ -11,6 +11,6 @@ class Dataset(models.Model):
 
 class Train(models.Model):
     training = models.BooleanField(default=False,null=True)
-
     def __str__(self):
         return str(self.training)
+ 
