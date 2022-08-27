@@ -14,7 +14,7 @@
         {% csrf_token %}
         <div class="container-fluid">
             {% include 'main/!form.html' %}
-            <input class="btn btn-success my-3 btn-block" type="submit" value="Analyse Data">
+            <input class="btn btn-dark my-3 btn-block" type="submit" value="Analyse Data">
             <a href="{% url 'index' %}" class="btn border-secondary">back to menu</a>
         </div>
     </form>

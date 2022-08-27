@@ -3,37 +3,28 @@
 {% block title %} index {% endblock title %}
 {% block style %}
 <style>
-.centered {
-  position: absolute;
-  top: 40%;
-  left: 15%;
-  transform: translate(-50%, -50%);
-}
 
-.header {
-  position: absolute;
-  top: 45%;
-  left: 27.6%;
-  transform: translate(-50%, -50%);
-}
-
-.test-button {
-  position: absolute;
-  top: 55%;
-  left: 13.6%;
-  transform: translate(-50%, -50%);
-  width: 150px;
-}
 </style>
 {% endblock style %}
 
 {% block content %}
-<div class=" text-white container-fluid px-0" style="height: 100vh;">
-<img class="" height="95%" width="100%" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070" alt="">
-    <h5 class=" centered ">Caring For Better Life</h5>
-    <h3 class="header mt-10 font-weight-bold">Efficient Heart Disease prediction system</h3>
-     <a  class="btn btn-info  btn-block  test-button" href="{% url 'index' %}">Test your heart</a>
-</div>
+  <div class=" row  mx-auto " style="min-height: 92vh;max-width: 1440px;" >
+    <div class="col-12 col-md-6  d-flex justify-content-center align-items-center" >
+      <div class="px-md-5 w-75   w-md-50" >
+
+    <p class="" style="font-size:50px;font-weight: 800;" >
+      Check Your heart Right now
+    </p>
+    <p class="font-weight-medium ">Use this machine learning technique to predict your heart's health </p>
+    <button class="btn btn-dark text-black   mr-2">Get Started</button>
+    <button class="btn  text-black btn-outline-dark  ">Learn more</button>
+      </div>
+    </div>
+    <div class="col-12 col-md-6  d-flex justify-content-center align-items-center">
+    <img src="https://pngimg.com/uploads/doctor/doctor_PNG16039.png"/>
+    </div>
+  </div>
+
 {% endblock content %}
 
 

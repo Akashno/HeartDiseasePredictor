@@ -27,19 +27,19 @@ def train_main():
     X_train, X_test, Y_train, Y_test = train_test_split(predictors, target, test_size=0.20, random_state=0)
    
     lr_model_score = train_lr_model(X_train, Y_train, X_test, Y_test)
-    nb_model_score = train_nb_model(X_train, Y_train, X_test, Y_test)
-    sv_model_score = train_sv_model(X_train, Y_train, X_test, Y_test)
-    knn_model_score = train_knn_model(X_train, Y_train, X_test, Y_test)
-    dt_model_score =  train_dt_model(X_train, Y_train, X_test, Y_test)
-    rf_model_score =train_rf_model(X_train, Y_train, X_test, Y_test)
+    # nb_model_score = train_nb_model(X_train, Y_train, X_test, Y_test)
+    # sv_model_score = train_sv_model(X_train, Y_train, X_test, Y_test)
+    # knn_model_score = train_knn_model(X_train, Y_train, X_test, Y_test)
+    # dt_model_score =  train_dt_model(X_train, Y_train, X_test, Y_test)
+    # rf_model_score =train_rf_model(X_train, Y_train, X_test, Y_test)
 
     scoreData = {
         'lr': lr_model_score,
-        'nb': nb_model_score,
-        'sv': sv_model_score,
-        'knn': knn_model_score,
-        'dt':dt_model_score,
-        'rf':rf_model_score
+        # 'nb': nb_model_score,
+        # 'sv': sv_model_score,
+        # 'knn': knn_model_score,
+        # 'dt':dt_model_score,
+        # 'rf':rf_model_score
     }    
     maxScore = max(scoreData, key=scoreData.get)
     print(maxScore)
