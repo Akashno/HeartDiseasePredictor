@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %} learn more {% endblock title %}
+{% block style %} {% endblock style %}
+
+{% block content %}
+<div class="container p-5 border border-secondary mt-5 rounded bg-light" style="display:grid; place-items:center;">
+<p class=" mb-5">Learn more about this project</p>
+    <div class="accordion" id="accordionExample">
+  <div class="card"  style="min-width:75vw ;">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block p-0 text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">What is heart disease predictor</button>
+      </h2>
+    </div>
+    <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">This project analyzes the heart disease patient dataset with proper data processing. Then, different models are trained and predictions are made based on that models. Classifiers like Logistic regression, Naive Bayes, Decision trees, Random forest, and support vector machines are used as model algorithms for predicting the results.</div>
+    </div>
+  </div>
+<div class="card" >
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block p-0 text-left" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Different classifiers used in this project</button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        There is a total of 6 Algorithms used Here for Model Training.
+        <ul class="mt-2">
+         <li> Logistic regression Algorithm </li>
+         <li>Gaussian Naive Bayes Algorithm</li>
+         <li>Decision tree Algorithm</li>
+         <li>Support vector machines Algorithm</li>
+         <li>KNN Algorithm</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ <div class="card" >
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block p-0 text-left" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">Enviorment and requiremnts</button>
+      </h2>
+    </div>
+    <div id="collapseThree" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        <ul class="mt-2">
+         <li>
+            Python: Since python is the best fit in the field of data science and machine learning we chose python as our environment for this project. 
+         </li>
+         <li>
+            Django: Django is used as the web support for this project. Django is so efficient in integrating with machine learning.
+         </li>
+         <li>
+            Sci kit learn Libraries: Classifiers packages are from the Sci kit learn library
+         </li>
+        </ul>
+      </div>
+    </div>
+  </div> 
+  
+</div>
+</div>
+{% endblock content %}
+
+
+{% block script %}{% endblock script %}

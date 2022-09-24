@@ -17,6 +17,14 @@ def home(request):
     context = {}
     return render(request, 'main/home.html', context)
 
+def learnMore(request):
+    faqs = [
+         { 'id':'0','title':"What is heart disease predictor",'content':"This project analyzes the heart disease patient dataset with proper data processing. Then, different models are trained and predictions are made based on that models. Classifiers like Logistic regression, Naive Bayes, Decision trees, Random forest, and support vector machines are used as model algorithms for predicting the results. These classifiers were imported from the sci-kit learn library which is a famous library for machine learning problems in python. The output target is predicted from the different models used by giving the 13 predictor variables such as Age, Sex, Angina, Resting Blood Pressure, Serum cholesterol, Fasting Blood Sugar, Resting ECG, Max heart rate achieved, Exercise-induced angina, Peak exercise St segment."},
+         { 'id':'1','title':"Classifiers used to predict the disease",'content':"There is a total of 6 Algorithms used Here for Model Training.  Logistic regression Algorithm Gaussian Naive Bayes Algorithm Decision tree Algorithm Random Forest Algorithm Support vector machines Algorithm KNN Algorithm These ALgorithms are imported from the sci-kit learn library which is a famous library for machine learning problems in python."}
+    ]
+    context = { 'faqs':faqs }
+    return render(request, 'main/learnMore.html', context)
+
 def analyse(request, pk):
     data = {
     'lr':'Logistic Regression','nb':'Naive Bayers','sv':'Support Vector Machine ',
